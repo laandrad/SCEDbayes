@@ -23,6 +23,7 @@ ABABJags = function(y,P){
   tau ~ dgamma(0.001, 0.001)
   }
   "
+  # Here is the regression model with beta's indicat
   writeLines(model.s, con='model.txt')
   
   # create dummy ABAB variables and Time according to Moeyaert et al. (2014)
@@ -33,6 +34,7 @@ ABABJags = function(y,P){
   P1 = c(rep(0, nPhase[1]), rep(1, length(phase) - nPhase[1]))
   P2 = c(rep(0, nPhase[2]), rep(1, length(phase) - nPhase[2]))
   P3 = c(rep(0, nPhase[3]), rep(1, length(phase) - nPhase[3]))
+  # I know that P1 is supposed to baseline and P2 is intervention and P3 is difference, but not sure how this gets us there
   y = y
   nPoints = length(y)
   t = 1:nPoints
@@ -55,7 +57,8 @@ ABABJags = function(y,P){
     beta3 = reg$coefficients[4] ,       
     tau = length(y) / sum(reg$residuals^2)  
   )
-  
+  # Initiatlzing the chains here
+    
   param = c('beta0', 'beta1', 'beta2', 'beta3', 'tau') # Specify Bayesian estimates to be extracted
   adaptSteps = 1000
   burnInSteps = 1000
