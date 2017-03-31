@@ -8,6 +8,7 @@ rm(list=ls())  # Careful! This clears all of R's memory!
 
 myData = read.csv( file="Lambert.csv" )
 myData = cbind( myData , X3 = myData[,"X"] * myData[,"X2"] )
+# Creating the interaction effect to evaluate the trends in the different phases.
 xName = "X" ; x2Name = "X2"; x3Name = "X3"; yName = "Y" ; sName="Subj"
 fileNameRoot = "HierLinRegressData-Jags-" 
 
@@ -85,6 +86,8 @@ genMCMC = function( data , xName="x" , x2Name = "x2",x3Name = "x3", yName="y" , 
   }
   }
   # Specify the model for standardized data:
+  # zbeta1 is the mean change, zbeta2 is the overall slope change (not very useful for us)
+  # because don't care about the slope changes.  zbeta3 is the interaction term so the slope.
   model {
   for ( i in 1:Ntotal ) {
   zy[i] ~ dt( zbeta0[s[i]] + zbeta1[s[i]] * zx[i] + zbeta2[s[i]] * zx2[i] + zbeta3[s[i]] * zx3[i], 1/zsigma^2 , nu )
