@@ -8,11 +8,17 @@ This function allows you to compute an interrupted time series (ITS) analysis wi
 ABABmodel(y, P, s, model = "level", plots = TRUE)
 
 ## Arguments
-y outcome variable
-P phase identifier
-s session identifier
-model the model to be fitted. It can be set to "level" (the default), "trend", or "AR1". "level" model calculates intercepts only, "trend" model calculates intercepts and slopes, and "AR1" calculates intercepts and an autocorrelation parameter at lag 1.
-plots whether graphs are to be plotted. Defaults to TRUE.
+### y
+outcome variable
+### P 
+phase identifier
+### s 
+session identifier
+### model 
+the model to be fitted. It can be set to "level" (the default), "trend", or "AR1". "level" model calculates intercepts only, "trend" model calculates intercepts and slopes, and "AR1" calculates intercepts and an autocorrelation parameter at lag 1.
+### plots 
+whether graphs are to be plotted. Defaults to TRUE.
 
 ## Return Values
-delta effect size estimates for A1B1, B1A2, and A2B2 phase changes
+### delta 
+effect size estimates for A1B1, B1A2, and A2B2 phase changes
