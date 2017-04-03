@@ -15,7 +15,7 @@
 #' dat = subset(dat, dat$STUDENT==1)
 #' model = ABABmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
 
-ABABmodel = function(y, P, s, model = 'level') {
+ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## load JAGS
   if(!require(rjags)){
@@ -70,30 +70,36 @@ ABABmodel = function(y, P, s, model = 'level') {
   cat("  |**************************************************| 100%\n")
 
   ## Plotting results
-  cat('Plotting results...\n')
+  if(plots == TRUE){
+    cat('Plotting results...\n')
 
-  plot.titles = c('A1B1 Effect Size',
-                  'B1A2 Effect Size',
-                  'A2B2 Effect Size')
+    plot.titles = c('A1B1 Effect Size',
+                    'B1A2 Effect Size',
+                    'A2B2 Effect Size')
 
-  parameter = c('delta A1B1',
-                'delta B1A2',
-                'delta A2B2')
+    parameter = c('delta A1B1',
+                  'delta B1A2',
+                  'delta A2B2')
 
-  openGraph(width = 14, height = 7)
+    openGraph(width = 14, height = 7)
 
-  if(model == 'trend'){
-    layout(matrix(c(1:3,rep(4,3)), nrow = 2, byrow=T))
-    sapply(1:3, function(i) posterior.plot(delta[,i], plot.titles[i], parameter[i]))
-    its.plot.trend(y, P, s, gamma)
+    if(model == 'trend'){
+      layout(matrix(c(1:3,rep(4,3)), nrow = 2, byrow=T))
+      sapply(1:3, function(i) posterior.plot(delta[,i], plot.titles[i], parameter[i]))
+      its.plot.trend(y, P, s, gamma)
 
-      } else{
-    layout(matrix(c(1:3,rep(4,3)), nrow = 2, byrow=T))
-    sapply(1:3, function(i) posterior.plot(delta[,i], plot.titles[i], parameter[i]))
-    its.plot(y, P, s, gamma)
+    } else{
+      layout(matrix(c(1:3,rep(4,3)), nrow = 2, byrow=T))
+      sapply(1:3, function(i) posterior.plot(delta[,i], plot.titles[i], parameter[i]))
+      its.plot(y, P, s, gamma)
+
+    }
+    cat("  |**************************************************| 100%\n")
+
+  } else{
+    cat('Plots omitted...\n')
 
   }
-  cat("  |**************************************************| 100%\n")
 
   detach(mcmc)
 
