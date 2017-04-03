@@ -3,11 +3,10 @@
 #' This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs to examine the effect of the introduction of a treatment B after a baseline A and the retreat of such treatment thus the name of the model ABAB.
 #' @param y outcome variable
 #' @param P phase identifier
-#' s session identifier
-#' model the model to be fitted. It can be set to "level" (the default), "trend", or "AR1". "level" model calculates intercepts only, "trend" model calculates intercepts and slopes, and "AR1" calculates intercepts and an autocorrelation parameter at lag 1.
-#' @return Phase.estimates the level (and slopes if "trend" or rho if "AR1") bayesian estimates. Results include the posterior mean, median, and lower and apper 95% HDI.
-#' Phase.change coefficient estimates for phase change at A1B1, B1A2, and A2B2. Results include the posterior mean, median, and lower and apper 95% HDI.
-#'
+#' @param s session identifier
+#' @param model the model to be fitted. It can be set to "level" (the default), "trend", or "AR1". "level" model calculates intercepts only, "trend" model calculates intercepts and slopes, and "AR1" calculates intercepts and an autocorrelation parameter at lag 1.
+#' @param plots whether graphs are to be plotted. Defaults to TRUE.
+#' @return delta effect size estimates for A1B1, B1A2, and A2B2 phase changes
 #' @export
 #' @examples
 #' library(SCEDbayes)
