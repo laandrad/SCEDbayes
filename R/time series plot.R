@@ -8,7 +8,7 @@ its.plot <- function(y, P, s, gamma) {
   plot(y~s, main='Interrupted Time Series Data Plot', pch=16, type='b', col='dark green', frame.plot=F)
   for(i in 1:3) abline(v=nPhase[i]+.5, lty = 2)
   nPhases = c(1, nPhase, length(s))
-  phase.level = gamma[,1:4]
+  phase.level = apply(gamma[,1:4], 2, mean)
   phases = c('A1', 'B1', 'A2', 'B2')
   mid.x = c(nPhases[1:4]+(nPhases[2:5]-nPhases[1:4])/2)
   text(mid.x, rep(max(y),4), phases, cex = 2)
