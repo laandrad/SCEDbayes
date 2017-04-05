@@ -35,22 +35,21 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   writeLines(ITS, con='model.txt')
 
   ## calculate bayesian coefficients using a Montecarlo Markov Chain
-  mcmc = bayesian.estimates(y, P, s, model)
-  mcmc = data.frame(mcmc)
-  attach(mcmc)
-  # return(mcmc)
+  beta = bayesian.estimates(y, P, s, model)
+  beta = data.frame(beta)
+  attach(beta)
 
   ## calculate phase intercept and slope at each point in the mcmc
   cat('Computing phase parameters...\n')
 
   if(model == 'trend'){
-    gamma = phase.trends(mcmc)
+    gamma = phase.trends(beta)
 
     } else if(model == 'AR1'){
-    gamma = phase.levels(mcmc)
+    gamma = phase.levels(beta)
 
     } else{
-    gamma = phase.levels(mcmc)
+    gamma = phase.levels(beta)
   }
     cat("  |**************************************************| 100%\n")
 
@@ -58,13 +57,13 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   cat('Computing effect size...\n')
 
   if(model == 'trend'){
-    delta = delta.trend(y, P, s, mcmc)
+    delta = delta.trend(y, P, s, beta)
 
     } else if(model == 'AR1'){
-    delta = delta.level(y, P, s, mcmc)
+    delta = delta.level(y, P, s, beta)
 
     } else{
-    delta = delta.level(y, P, s, mcmc)
+    delta = delta.level(y, P, s, beta)
   }
   cat("  |**************************************************| 100%\n")
 
@@ -100,17 +99,17 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   }
 
-  detach(mcmc)
+  detach(beta)
 
-  mcmc.results = sapply(mcmc, describe)
+  beta.results = sapply(beta, describe)
   gamma.results = sapply(gamma, describe)
   delta.results = sapply(delta, describe)
 
-  print(mcmc.results)
+  print(beta.results)
   print(gamma.results)
   print(delta.results)
 
-  return(mcmc)
+  return(list(beta, gamma, delta))
 
 }
 
