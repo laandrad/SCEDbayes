@@ -105,11 +105,14 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   gamma.results = sapply(gamma, describe)
   delta.results = sapply(delta, describe)
 
+  cat('\nBayesian estimates for A1B1, B1A2, and A2B2 phase changes:\n')
   print(beta.results)
+  cat('\nRegression estimates for A1, B1, A2, and B2 phases:\n')
   print(gamma.results)
+  cat('\nStandardized effect size estimates for A1B1, B1A2, and A2B2 phase changes:\n')
   print(delta.results)
 
-  return(list(beta, gamma, delta))
+  return(list(beta.results, gamma.results, delta.results))
 
 }
 
