@@ -60,7 +60,7 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
     delta = delta.trend(y, P, s, beta)
 
     } else if(model == 'AR1'){
-    delta = delta.level(y, P, s, beta)
+    delta = delta.AR1(y, P, s, beta)
 
     } else{
     delta = delta.level(y, P, s, beta)
