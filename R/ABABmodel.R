@@ -68,6 +68,8 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   cat("  |**************************************************| 100%\n")
 
   ## Plotting results
+  graphics.off()
+    
   if(plots == TRUE){
     cat('Plotting results...\n')
 
