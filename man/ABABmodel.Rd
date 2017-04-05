@@ -16,10 +16,13 @@ ABABmodel(y, P, s, model = "level", plots = TRUE)
 \item{s}{session identifier}
 \item{model}{the model to be fitted. It can be set to "level" (the default), "trend", or "AR1". "level" model calculates intercepts only, "trend" model calculates intercepts and slopes, and "AR1" calculates intercepts and an autocorrelation parameter at lag 1.}
 \item{plots}{whether graphs are to be plotted. Defaults to TRUE.}
+}
 
-\value{beta}{Bayesian estimates for A1B1, B1A2, and A2B2 phase changes}
-\value{gamma}{regression estimates for A1, B1, A2, and B2 phases}
-\value{delta}{standardized effect size estimates for A1B1, B1A2, and A2B2 phase changes}
+\value{
+\item{beta}{Bayesian estimates for A1B1, B1A2, and A2B2 phase changes}
+\item{gamma}{regression estimates for A1, B1, A2, and B2 phases}
+\item{delta}{standardized effect size estimates for A1B1, B1A2, and A2B2 phase changes}
+}
 
 \description{
 This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs to examine the effect of the introduction of a treatment B after a baseline A and the retreat of such treatment thus the name of the model ABAB.
