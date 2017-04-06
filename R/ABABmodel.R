@@ -46,7 +46,7 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
     gamma = phase.trends(beta)
 
     } else if(model == 'AR1'){
-    gamma = phase.levels(beta)
+    gamma = phase.AR1(beta)
 
     } else{
     gamma = phase.levels(beta)
