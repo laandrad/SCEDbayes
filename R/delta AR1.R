@@ -13,7 +13,7 @@ delta.AR1 <- function(y, P, s, bayes.coeff) {
 
   stdev = sapply(1:N, function(j) {
     res = sapply(2:nPoints, function(t){
-      yhat = beta0[j]*(1-rho) + beta1[j] * (P1[t]-rho*P1[t-1]) + beta2[j] * (P2[t]-rho*P2[t-1]) + beta3[j] * (P3[t]-rho*P3[t-1])
+      yhat = beta0[j]*(1-rho[j]) + beta1[j] * (P1[t]-rho[j]*P1[t-1]) + beta2[j] * (P2[t]-rho[j]*P2[t-1]) + beta3[j] * (P3[t]-rho[j]*P3[t-1])
       yhat = c( beta0[j] + beta1[j] * P1[1] + beta2[j] * P2[1] + beta3[j] * P3[1] , yhat)
       return((y[t] - yhat)^2)
     })
