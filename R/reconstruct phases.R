@@ -24,7 +24,7 @@ reconstruct.phases <- function(bayes.coeff, model, P) {
 
       beta1A1 = beta4                                                                                     ## A1 slope
       beta1B1 = sapply(1:N, function(j) beta4[j] + beta5[j] )                                             ## B1 slope
-      beta1A2 = sapply(1:N, function(j) beta4[j] + beta5[j]+ beta6[j] )                                   ## A2 slope
+      beta1A2 = sapply(1:N, function(j) beta4[j] + beta5[j] + beta6[j] )                                  ## A2 slope
       beta1B2 = sapply(1:N, function(j) beta4[j] + beta5[j] + beta6[j] + beta7[j] )                       ## B2 slope
       sigma =   sapply(1:N, function(j) sigma.delta[j] )                                                  ## stdev
 

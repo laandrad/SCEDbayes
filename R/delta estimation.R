@@ -43,14 +43,18 @@ compute.delta <- function(y, P, s, bayes.coeff, model) {
     })
 
     ## calculate effect sizes
-    delta1 = sapply(1:N, function(j) beta1[j] + (beta5[j] * (nPhase[2]-1)/2) ) ## A1B1
-    delta2 = sapply(1:N, function(j) beta2[j] + (beta6[j] * (nPhase[3]-1)/2) ) ## B1A2
-    delta3 = sapply(1:N, function(j) beta3[j] + (beta7[j] * (nPhase[4]-1)/2) ) ## A2B2
+    beta1.star = sapply(1:N, function(j) beta1[j] - beta5[j]*lPhase[1] )          ## B1 level
+    beta2.star = sapply(1:N, function(j) beta2[j] - beta6[j]*lPhase[2] )          ## A2 level
+    beta3.star = sapply(1:N, function(j) beta3[j] - beta7[j]*lPhase[3] )          ## B2 level
+
+    delta1 = sapply(1:N, function(j) beta1.star[j] + beta5[j] * (nPhase[2]-1)/2 ) ## A1B1
+    delta2 = sapply(1:N, function(j) beta2.star[j] + beta6[j] * (nPhase[3]-1)/2 ) ## B1A2
+    delta3 = sapply(1:N, function(j) beta3.star[j] + beta7[j] * (nPhase[4]-1)/2 ) ## A2B2
 
     ## standardize effect sizes
-    delta1 = sapply(1:N, function(j) delta1[j] / stdev[j]) ## A1B1
-    delta2 = sapply(1:N, function(j) delta2[j] / stdev[j]) ## B1A2
-    delta3 = sapply(1:N, function(j) delta3[j] / stdev[j]) ## A2B2
+    delta1 = sapply(1:N, function(j) delta1[j] / stdev[j])                        ## A1B1
+    delta2 = sapply(1:N, function(j) delta2[j] / stdev[j])                        ## B1A2
+    delta3 = sapply(1:N, function(j) delta3[j] / stdev[j])                        ## A2B2
 
     return(data.frame(delta1, delta2, delta3))
 
@@ -61,9 +65,9 @@ compute.delta <- function(y, P, s, bayes.coeff, model) {
       yhat = sapply(2:nPoints, function(t) beta0[j]*(1-rho[j]) +
                                            beta1[j] * (P1[t]-rho[j]*P1[t-1]) +
                                            beta2[j] * (P2[t]-rho[j]*P2[t-1]) +
-                                           beta3[j] * (P3[t]-rho[j]*P3[t-1])
-                                                                            )
-      yhat = c( beta0[j] + beta1[j] * P1[1] + beta2[j] * P2[1] + beta3[j] * P3[1] , yhat)
+                                           beta3[j] * (P3[t]-rho[j]*P3[t-1]) )
+
+      yhat = c( beta0[j] + beta1[j] * P1[1] + beta2[j] * P2[1] + beta3[j] * P3[1] , yhat )
       res = (y - yhat)^2
       return(sqrt(sum(res)/nPoints))
     })

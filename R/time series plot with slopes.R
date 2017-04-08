@@ -21,6 +21,6 @@ its.plot.trend <- function(y, P, s, gamma) {
     y = c(phase.level[i], phase.level[i]+phase.slope[i]*lPhase[i])
     lines(x, y, lty = 2, col='red')
   }
-  for(i in 1:4) text(nPhases[i]+1, phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(round(phase.level[i],2)))), adj=c(-1,1))
+  for(i in 1:4) text(nPhases[i], phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(round(phase.level[i],2)))), adj=c(-1,1))
 
 }
