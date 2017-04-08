@@ -13,6 +13,6 @@ its.plot <- function(y, P, s, gamma) {
   mid.x = c(nPhases[1:4]+(nPhases[2:5]-nPhases[1:4])/2)
   text(mid.x, rep(max(y),4), phases, cex = 2)
   for(i in 1:4) lines(c(nPhases[i]+.5, nPhases[i+1]+.5), rep(phase.level[i],2), lty = 2, col='red')
-  for(i in 1:4) text(nPhases[i]+1, phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(phase.level[i]))), adj=c(-1,1))
+  for(i in 1:4) text(nPhases[i]+1, phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(round(phase.level[i],2)))), adj=c(-1,1))
 
 }

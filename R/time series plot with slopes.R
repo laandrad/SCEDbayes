@@ -18,9 +18,9 @@ its.plot.trend <- function(y, P, s, gamma) {
   text(mid.x, rep(max(y),4), phases, cex = 2)
   for(i in 1:4){
     x = c(nPhases[i]+.5, nPhases[i+1])
-    y = c(phase.level[i]-phase.slope[i]*lPhase[i], phase.level[i]+phase.slope[i]*lPhase[i])
+    y = c(phase.level[i], phase.level[i]+phase.slope[i]*lPhase[i])
     lines(x, y, lty = 2, col='red')
   }
-  for(i in 1:4) text(nPhases[i]+1, phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(phase.level[i]))), adj=c(-1,1))
+  for(i in 1:4) text(nPhases[i]+1, phase.level[i], bquote(paste(mu[.(phases[i])],' = ',.(round(phase.level[i],2)))), adj=c(-1,1))
 
 }

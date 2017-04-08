@@ -14,6 +14,7 @@ bayesian.estimates <- function(y, P, s, model) {
     T4 = unlist(phases[7])
   )
 
+  ## Load model
   if(model == 'trend'){
     reg = lm(y ~ T1 + P1 + T2:P1 + P2 + T3:P2 + P3 + T4:P3, data = data)
     initsList = list(
@@ -25,11 +26,12 @@ bayesian.estimates <- function(y, P, s, model) {
       beta5 = reg$coefficients[6] ,
       beta6 = reg$coefficients[7] ,
       beta7 = reg$coefficients[8] ,
-      tau = length(y) / sum(reg$residuals^2)
+      rho = 0,
+      sigma.delta = length(y) / sum(reg$residuals^2)
     )
-    param = c('beta0', 'beta1', 'beta2', 'beta3', 'beta4', 'beta5', 'beta6', 'beta7', 'tau')
+    param = c('beta0', 'beta1', 'beta2', 'beta3', 'beta4', 'beta5', 'beta6', 'beta7', 'rho', 'sigma.delta')
 
-  } else if(model == 'AR1'){
+  } else {
     reg = lm(y ~ P1 + P2 + P3, data = data)
     initsList = list(
       beta0 = reg$coefficients[1] ,
@@ -42,20 +44,9 @@ bayesian.estimates <- function(y, P, s, model) {
     param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'sigma.delta')
     data = data[1:5]
 
-  } else{
-    reg = lm(y ~ P1 + P2 + P3, data = data)
-    initsList = list(
-      beta0 = reg$coefficients[1] ,
-      beta1 = reg$coefficients[2] ,
-      beta2 = reg$coefficients[3] ,
-      beta3 = reg$coefficients[4] ,
-      tau = length(y) / sum(reg$residuals^2)
-    )
-    param = c('beta0', 'beta1', 'beta2', 'beta3', 'tau')
-    data = data[1:5]
-
   }
 
+  ## Initialize MCMC
   adaptSteps = 1000
   burnInSteps = 1000
   nChains = 3
@@ -65,9 +56,11 @@ bayesian.estimates <- function(y, P, s, model) {
 
   jagsModel = jags.model('model.txt', data=data, n.chains = nChains, n.adapt = adaptSteps, inits=initsList)
 
+  ## Burn in chain
   cat('Burning in the MCMC chain...\n')
   update(jagsModel, n.iter=burnInSteps)
 
+  ## Compute final chain
   cat('Sampling final MCMC chain...\n')
   codaSamples = coda.samples(jagsModel, variable.names=param, n.iter=nIter, thin=thinSteps)
 

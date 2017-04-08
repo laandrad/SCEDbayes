@@ -13,7 +13,7 @@ reconstruct.phases <- function(bayes.coeff, model, P) {
 
   if(model == 'trend'){
 
-      beta1.star = sapply(1:N, function(j) beta1[j] - beta5[j]*lPhase[2] )                                ## B1 level
+      beta1.star = sapply(1:N, function(j) beta1[j] - beta5[j]*lPhase[1] )                                ## B1 level
       beta2.star = sapply(1:N, function(j) beta2[j] - beta6[j]*lPhase[2] )                                ## A2 level
       beta3.star = sapply(1:N, function(j) beta3[j] - beta7[j]*lPhase[3] )                                ## B2 level
 
