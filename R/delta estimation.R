@@ -43,9 +43,9 @@ compute.delta <- function(y, P, s, bayes.coeff, model) {
     })
 
     ## calculate effect sizes
-    beta1.star = sapply(1:N, function(j) beta1[j] - beta5[j]*lPhase[1] )          ## B1 level
-    beta2.star = sapply(1:N, function(j) beta2[j] - beta6[j]*lPhase[2] )          ## A2 level
-    beta3.star = sapply(1:N, function(j) beta3[j] - beta7[j]*lPhase[3] )          ## B2 level
+    beta1.star = sapply(1:N, function(j) beta1[j] - beta5[j]*nPhase[1] )          ## B1 level
+    beta2.star = sapply(1:N, function(j) beta2[j] - beta6[j]*nPhase[2] )          ## A2 level
+    beta3.star = sapply(1:N, function(j) beta3[j] - beta7[j]*nPhase[3] )          ## B2 level
 
     delta1 = sapply(1:N, function(j) beta1.star[j] + beta5[j] * (nPhase[2]-1)/2 ) ## A1B1
     delta2 = sapply(1:N, function(j) beta2.star[j] + beta6[j] * (nPhase[3]-1)/2 ) ## B1A2
