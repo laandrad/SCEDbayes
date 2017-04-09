@@ -59,7 +59,7 @@ compute.delta <- function(y, P, s, bayes.coeff, model) {
 
     ## calculate the within-subject stdev from residuals = observed - predicted value at time t
     stdev = sapply(1:N, function(j) {
-      yhat = sapply(2:nPoints, function(t) beta0[j]*(1-rho[j]) +
+      yhat = sapply(2:nPoints, function(t) beta0[j] * (1-rho[j]) +
                                            beta1[j] * (P1[t]-rho[j]*P1[t-1]) +
                                            beta2[j] * (P2[t]-rho[j]*P2[t-1]) +
                                            beta3[j] * (P3[t]-rho[j]*P3[t-1]) )
