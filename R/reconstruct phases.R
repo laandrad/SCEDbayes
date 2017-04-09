@@ -7,7 +7,7 @@ reconstruct.phases <- function(bayes.coeff, model, P) {
   nPhase = which(!x==0)
   lPhase = c(0,nPhase, nPoints)
   lPhase = lPhase[-1] - lPhase[-length(lPhase)]
-  lPhase = lPhase / 2
+  lPhase = (lPhase-1) / 2
 
   N = nrow(bayes.coeff)
 
