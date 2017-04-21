@@ -80,6 +80,8 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
       mb.its.plot(y, P, s, gamma)
     }
 
+    openGraph(width = 7, height = 7)
+    layout(1)
     gelman.plot(chains)
 
     cat("  |**************************************************| 100%\n")
