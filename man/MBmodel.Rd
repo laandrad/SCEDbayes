@@ -4,7 +4,7 @@
 \alias{MBmodel}
 \title{Bayesian Estimation of Effect Sizes in Multiple-Baseline Designs}
 \usage{
-MBmodel(y, P, s, model = "level", plots = TRUE)
+MBmodel(y, P, s, model = "level", plots = TRUE, diagnostics = FALSE)
 }
 \arguments{
 \item{y}{outcome variable}
