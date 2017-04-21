@@ -14,7 +14,7 @@
 #' dat = subset(dat, dat$STUDENT==1)
 #' model = MBmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
 
-MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
+MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) {
 
   ## load packages
   if(!require(rjags)){
@@ -80,9 +80,11 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
       mb.its.plot(y, P, s, gamma)
     }
 
-    openGraph(width = 7, height = 7)
-    layout(1)
-    gelman.plot(chains)
+    if(diagnostics == T){
+      openGraph(width = 7, height = 7)
+      layout(1)
+      gelman.plot(chains)
+    }
 
     cat("  |**************************************************| 100%\n")
 
