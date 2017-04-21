@@ -33,7 +33,7 @@ mb.bayesian.estimates <- function(y, P, s, model) {
       nu = 1,
       sigma.delta = length(y) / sum(reg$residuals^2)
     )
-    param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'sigma.delta')
+    param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'nu', 'sigma.delta')
 
   } else {
     reg = lm(y ~ P1, data = data)
