@@ -68,6 +68,7 @@ abab.bayesian.estimates <- function(y, P, s, model) {
 
   ## Save the sampled chains as a matrix for further processing
   mcmc = as.matrix(codaSamples)
-  return(mcmc)
+
+  return(list(mcmc, codaSamples))
 
 }
