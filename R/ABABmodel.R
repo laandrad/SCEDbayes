@@ -14,7 +14,7 @@
 #' dat = subset(dat, dat$STUDENT==1)
 #' model = ABABmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
 
-ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
+ABABmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) {
 
   ## load JAGS
   if(!require(rjags)){
