@@ -16,10 +16,15 @@
 
 MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
-  ## load JAGS
+  ## load packages
   if(!require(rjags)){
     install.packages("rjags")
     library(rjags)
+  }
+
+  if(!require(coda)){
+    install.packages("coda")
+    library(coda)
   }
 
   ## load model as specified in model argument
@@ -73,6 +78,8 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
     } else{
       mb.its.plot(y, P, s, gamma)
     }
+
+    gelman.plot(beta)
 
     cat("  |**************************************************| 100%\n")
 
