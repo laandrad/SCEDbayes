@@ -25,7 +25,8 @@ This function allows you to compute an interrupted time series (ITS) analysis wi
 }
 \examples{
 library(SCEDbayes)
-dat = data(LAMBERT_MB, package = "SCEDbayes")
+dat = subset(LAMBERT_MB, LAMBERT_MB$STUDENT==1)
 y = dat$DATA.POINT; P = dat$PHASE; s = dat$SESSION;
-model = MBmodel(y, P, s, model = 'level', plots = TRUE)
+model1 = MBmodel(y, P, s, model = 'level') # Intercepts only model
+model2 = MBmodel(y, P, s, model = 'trend') # Intercepts and slopes model
 }
