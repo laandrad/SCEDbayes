@@ -50,7 +50,7 @@ mb.bayesian.estimates <- function(y, P, s, model) {
 
   ## Initialize MCMC
   adaptSteps = 1000
-  burnInSteps = 1000
+  burnInSteps = 5000
   nChains = 3
   numSavedSteps = 20000
   thinSteps = 1
