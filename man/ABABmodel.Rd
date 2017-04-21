@@ -4,7 +4,7 @@
 \alias{ABABmodel}
 \title{Bayesian Estimation of Effect Sizes in ABAB Reversal Designs}
 \usage{
-ABABmodel(y, P, s, model = "level", plots = TRUE)
+ABABmodel(y, P, s, model = "level", plots = TRUE, diagnostics = FALSE)
 }
 \arguments{
 \item{y}{outcome variable}
