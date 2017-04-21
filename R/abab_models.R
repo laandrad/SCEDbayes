@@ -7,7 +7,7 @@ abab.model.level = "
           # t subsequent observations
           for(t in 2:nPoints){
             y[t] ~ dt(mu[t], tau.delta, nu)
-            mu[t] <-  beta0 * (P1[t]-rho) +
+            mu[t] <-  beta0 * (1-rho) +
                       beta1 * (P1[t]-rho*P1[t-1]) +
                       beta2 * (P2[t]-rho*P2[t-1]) +
                       beta3 * (P3[t]-rho*P3[t-1]) +
@@ -44,7 +44,7 @@ abab.model.trend = "
           # t subsequent observations
           for(t in 2:nPoints){
             y[t] ~ dt(mu[t], tau.delta, nu)
-            mu[t] <-  beta0 * (P1[t]-rho)         + beta4 * (T1[t]       - rho*T1[t-1])         +  ## A1 intercept and slope
+            mu[t] <-  beta0 * (1-rho)             + beta4 * (T1[t]       - rho*T1[t-1])         +  ## A1 intercept and slope
                       beta1 * (P1[t]-rho*P1[t-1]) + beta5 * (T2[t]*P1[t] - rho*T2[t-1]*P1[t-1]) +  ## A1B1 intercept and slope change
                       beta2 * (P2[t]-rho*P2[t-1]) + beta6 * (T3[t]*P2[t] - rho*T3[t-1]*P2[t-1]) +  ## B1A2 intercept and slope change
                       beta3 * (P3[t]-rho*P3[t-1]) + beta7 * (T4[t]*P3[t] - rho*T4[t-1]*P3[t-1]) +  ## A2B2 intercept and slope change

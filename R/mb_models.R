@@ -7,7 +7,7 @@ mb.model.level = "
           # t subsequent observations
           for(t in 2:nPoints){
             y[t] ~ dt(mu[t], tau.delta, nu)
-            mu[t] <-  beta0 * (P1[t]-rho) +
+            mu[t] <-  beta0 * (1-rho) +
                       beta1 * (P1[t]-rho*P1[t-1]) +
                       rho * y[t-1]
           }
