@@ -27,9 +27,10 @@ abab.bayesian.estimates <- function(y, P, s, model) {
       beta6 = reg$coefficients[7] ,
       beta7 = reg$coefficients[8] ,
       rho = 0,
+      nu = 1,
       sigma.delta = length(y) / sum(reg$residuals^2)
     )
-    param = c('beta0', 'beta1', 'beta2', 'beta3', 'beta4', 'beta5', 'beta6', 'beta7', 'rho', 'sigma.delta')
+    param = c('beta0', 'beta1', 'beta2', 'beta3', 'beta4', 'beta5', 'beta6', 'beta7', 'rho', 'nu', 'sigma.delta')
 
   } else {
     reg = lm(y ~ P1 + P2 + P3, data = data)
@@ -39,18 +40,19 @@ abab.bayesian.estimates <- function(y, P, s, model) {
       beta2 = reg$coefficients[3] ,
       beta3 = reg$coefficients[4] ,
       rho = 0,
+      nu = 1,
       sigma.delta = length(y) / sum(reg$residuals^2)
     )
-    param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'sigma.delta')
+    param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'nu', 'sigma.delta')
     data = data[1:5]
 
   }
 
   ## Initialize MCMC
-  adaptSteps = 1000
-  burnInSteps = 1000
+  adaptSteps = 2000
+  burnInSteps = 5000
   nChains = 3
-  numSavedSteps = 20000
+  numSavedSteps = 25000
   thinSteps = 1
   nIter = ceiling((numSavedSteps * thinSteps)/nChains)
 

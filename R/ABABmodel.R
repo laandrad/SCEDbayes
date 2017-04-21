@@ -32,7 +32,8 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## calculate bayesian coefficients using a Montecarlo Markov Chain
   beta = abab.bayesian.estimates(y, P, s, model)
-  beta = data.frame(beta)
+  chains = beta[[2]]
+  beta = data.frame(beta[[1]])
 
   # return(beta)
 
@@ -95,6 +96,21 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   print(gamma.results)
   cat('\nStandardized effect size estimates for A1B1, B1A2, and A2B2 phase changes:\n')
   print(delta.results)
+
+  if(diagnostics == T){
+    cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence]:\n')
+    GB = gelman.diag(chains)
+    print(GB)
+    cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
+    ESS = effectiveSize(chains)
+    print(ESS)
+    MCSE = apply(beta, 2, sd) / sqrt(ESS)
+    cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
+    print(MCSE)
+    openGraph(width = 14, height = 7)
+    layout(1)
+    gelman.plot(chains)
+  }
 
   return(list(beta.results, gamma.results, delta.results))
 

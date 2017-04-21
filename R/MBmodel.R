@@ -80,12 +80,6 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
       mb.its.plot(y, P, s, gamma)
     }
 
-    if(diagnostics == T){
-      openGraph(width = 7, height = 7)
-      layout(1)
-      gelman.plot(chains)
-    }
-
     cat("  |**************************************************| 100%\n")
 
   } else{
@@ -115,6 +109,9 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
     MCSE = apply(beta, 2, sd) / sqrt(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
+    openGraph(width = 7, height = 7)
+    layout(1)
+    gelman.plot(chains)
   }
 
   return(list(beta.results, gamma.results, delta.results))

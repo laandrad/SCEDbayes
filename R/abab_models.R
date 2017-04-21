@@ -1,12 +1,12 @@
 abab.model.level = "
   model {
           # first observation
-          y[1] ~ dnorm(mu[1], tau.e)
+          y[1] ~ dt(mu[1], tau.e, nu)
           mu[1] <- beta0 + beta1 * P1[1] + beta2 * P2[1] + beta3 * P3[1]
 
           # t subsequent observations
           for(t in 2:nPoints){
-            y[t] ~ dnorm(mu[t], tau.delta)
+            y[t] ~ dt(mu[t], tau.delta, nu)
             mu[t] <-  beta0 * (1-rho) +
                       beta1 * (P1[t]-rho*P1[t-1]) +
                       beta2 * (P2[t]-rho*P2[t-1]) +
@@ -22,6 +22,8 @@ abab.model.level = "
 
           rho ~ dunif(-1,1)
 
+          nu ~ dexp(1/30.0)
+
           tau.e <- 1/pow(sigma.e,2)
           tau.delta <- 1/pow(sigma.delta,2)
 
@@ -33,7 +35,7 @@ abab.model.level = "
 abab.model.trend = "
   model {
           # first observation
-          y[1] ~ dnorm(mu[1], tau.e)
+          y[1] ~ dt(mu[1], tau.e, nu)
           mu[1] <-  beta0         + beta4 * T1[1]         +  ## A1 intercept and slope
                     beta1 * P1[1] + beta5 * T2[1] * P1[1] +  ## A1B1 intercept and slope change
                     beta2 * P2[1] + beta6 * T3[1] * P2[1] +  ## B1A2 intercept and slope change
@@ -41,7 +43,7 @@ abab.model.trend = "
 
           # t subsequent observations
           for(t in 2:nPoints){
-            y[t] ~ dnorm(mu[t], tau.delta)
+            y[t] ~ dt(mu[t], tau.delta, nu)
             mu[t] <-  beta0 * (1-rho)             + beta4 * (T1[t]       - rho*T1[t-1])         +  ## A1 intercept and slope
                       beta1 * (P1[t]-rho*P1[t-1]) + beta5 * (T2[t]*P1[t] - rho*T2[t-1]*P1[t-1]) +  ## A1B1 intercept and slope change
                       beta2 * (P2[t]-rho*P2[t-1]) + beta6 * (T3[t]*P2[t] - rho*T3[t-1]*P2[t-1]) +  ## B1A2 intercept and slope change
@@ -60,6 +62,8 @@ abab.model.trend = "
           beta7 ~ dnorm(0, 0.001)
 
           rho ~ dunif(-1,1)
+
+          nu ~ dexp(1/30.0)
 
           tau.e <- 1/pow(sigma.e,2)
           tau.delta <- 1/pow(sigma.delta,2)
