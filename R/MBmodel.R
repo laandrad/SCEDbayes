@@ -1,6 +1,6 @@
 #' Bayesian Estimation of Effect Sizes in Single-Case Experimental Designs
 #'
-#' This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs to examine the effect of the introduction of a treatment B after a baseline A and the retreat of such treatment thus the name of the model ABAB.
+#' This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs to examine the effect of the introduction of a treatment B after a baseline A.
 #' @param y outcome variable
 #' @param P phase identifier
 #' @param s session identifier
@@ -12,9 +12,9 @@
 #' library(SCEDbayes)
 #' dat = data(LAMBERT, package = "SCEDbayes")
 #' dat = subset(dat, dat$STUDENT==1)
-#' model = ABABmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
+#' model = MBmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
 
-ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
+MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## load JAGS
   if(!require(rjags)){
@@ -24,14 +24,14 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## load model as specified in model argument
   if(model == 'trend'){
-    ITS = abab.model.trend
+    ITS = mb.model.trend
     } else{
-    ITS = abab.model.level
+    ITS = mb.model.level
   }
   writeLines(ITS, con='model.txt')
 
   ## calculate bayesian coefficients using a Montecarlo Markov Chain
-  beta = abab.bayesian.estimates(y, P, s, model)
+  beta = mb.bayesian.estimates(y, P, s, model)
   beta = data.frame(beta)
 
   # return(beta)
@@ -41,14 +41,14 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   ## calculate phase intercept and slope at each point in the mcmc
   cat('Computing phase parameters...\n')
 
-  gamma = abab.reconstruct.phases(beta, model, P)
+  gamma = mb.reconstruct.phases(beta, model, P)
 
   cat("  |**************************************************| 100%\n")
 
   ## calculate effect size for each phase change according to model
   cat('Computing effect size...\n')
 
-  delta = abab.compute.delta(y, P, s, beta, model)
+  delta = mb.compute.delta(y, P, s, beta, model)
 
   cat("  |**************************************************| 100%\n")
 
@@ -60,22 +60,18 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   if(plots == TRUE){
     cat('Plotting results...\n')
 
-    plot.titles = c('A1B1 Effect Size',
-                    'B1A2 Effect Size',
-                    'A2B2 Effect Size')
+    plot.titles = c('Standardized Effect Size')
 
-    parameter = c('delta A1B1',
-                  'delta B1A2',
-                  'delta A2B2')
+    parameter = c('delta')
 
-    openGraph(width = 14, height = 7)
-    layout(matrix(c(1:3,rep(4,3)), nrow = 2, byrow=T))
-    sapply(1:3, function(i) posterior.plot(delta[,i], plot.titles[i], parameter[i]))
+    openGraph(width = 14, height = 4)
+    layout(matrix(c(1,rep(2,2)), nrow = 1, byrow=T))
+    sapply(1, function(i) posterior.plot(delta, plot.titles[i], parameter[i]))
 
     if(model == 'trend'){
-      abab.its.plot.trend(y, P, s, gamma)
+      mb.its.plot.trend(y, P, s, gamma)
     } else{
-      abab.its.plot(y, P, s, gamma)
+      mb.its.plot(y, P, s, gamma)
     }
 
     cat("  |**************************************************| 100%\n")
@@ -87,13 +83,14 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE) {
   ## Printing results
   beta.results = t(sapply(beta, describe))
   gamma.results = t(sapply(gamma, describe))
-  delta.results = t(sapply(delta, describe))
+  delta.results = t(data.frame(describe(delta)))
+  row.names(delta.results)[1] = 'delta'
 
-  cat('\nBayesian estimates for A1B1, B1A2, and A2B2 phase changes:\n')
+  cat('\nBayesian estimates for A and B-A phase change:\n')
   print(beta.results)
-  cat('\nRegression estimates for A1, B1, A2, and B2 phases:\n')
+  cat('\nRegression estimates for A and B phases:\n')
   print(gamma.results)
-  cat('\nStandardized effect size estimates for A1B1, B1A2, and A2B2 phase changes:\n')
+  cat('\nStandardized effect size estimates for B-A phase change:\n')
   print(delta.results)
 
   return(list(beta.results, gamma.results, delta.results))

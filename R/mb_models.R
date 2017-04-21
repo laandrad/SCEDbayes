@@ -1,4 +1,32 @@
+mb.model.level = "
+  model {
+          # first observation
+          y[1] ~ dnorm(mu[1], tau.e)
+          mu[1] <- beta0 + beta1 * P1[1]
 
+          # t subsequent observations
+          for(t in 2:nPoints){
+            y[t] ~ dnorm(mu[t], tau.delta)
+            mu[t] <-  beta0 * (1-rho) +
+                      beta1 * (P1[t]-rho*P1[t-1]) +
+                      rho * y[t-1]
+          }
+
+          # Priors
+          beta0 ~ dnorm(0, 0.001)
+          beta1 ~ dnorm(0, 0.001)
+
+          rho ~ dunif(-1,1)
+
+          tau.e <- 1/pow(sigma.e,2)
+          tau.delta <- 1/pow(sigma.delta,2)
+
+          sigma.e <- sigma.delta/sqrt(1-pow(rho,2))
+          sigma.delta ~ dunif(0,100)
+        }
+"
+
+mb.model.trend = "
   model {
           # first observation
           y[1] ~ dnorm(mu[1], tau.e)
@@ -27,4 +55,4 @@
           sigma.e <- sigma.delta/sqrt(1-pow(rho,2))
           sigma.delta ~ dunif(0,100)
         }
-
+"

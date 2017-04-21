@@ -1,8 +1,8 @@
 Package: SCEDbayes
-Title: What the Package Does (one line, title case)
+Title: Bayesian Estimation of Effect Sizes in Single-Case Experimental Designs
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Alejandro", "Andrade", email = "laandrad@indiana.edu", role = c("aut", "cre"))
+Description: Provides convenient functions for the estimation of effect sizes in single-case experimental designs using a Bayesian framework.
 Depends: R (>= 3.2.2)
 License: What license is it under?
 Encoding: UTF-8
