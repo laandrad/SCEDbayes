@@ -37,6 +37,7 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## calculate bayesian coefficients using a Montecarlo Markov Chain
   beta = mb.bayesian.estimates(y, P, s, model)
+  chains = beta
   beta = data.frame(beta)
 
   # return(beta)
@@ -79,7 +80,7 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
       mb.its.plot(y, P, s, gamma)
     }
 
-    gelman.plot(beta)
+    gelman.plot(chains)
 
     cat("  |**************************************************| 100%\n")
 
