@@ -84,7 +84,6 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
       openGraph(width = 7, height = 7)
       layout(1)
       gelman.plot(chains)
-      ESS = effectiveSize(chains)
     }
 
     cat("  |**************************************************| 100%\n")
@@ -107,8 +106,11 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
   print(delta.results)
 
   if(diagnostics == T){
-    ESS = effectiveSize(chains)
+    cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence]:\n')
+    GB = gelman.diag(chains)
+    print(GB)
     cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
+    ESS = effectiveSize(chains)
     print(ESS)
     MCSE = apply(beta, 2, sd) / sqrt(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
