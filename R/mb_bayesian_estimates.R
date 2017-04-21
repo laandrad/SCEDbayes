@@ -49,10 +49,10 @@ mb.bayesian.estimates <- function(y, P, s, model) {
   }
 
   ## Initialize MCMC
-  adaptSteps = 1000
-  burnInSteps = 5000
+  adaptSteps = 2000
+  burnInSteps = 10000
   nChains = 3
-  numSavedSteps = 20000
+  numSavedSteps = 30000
   thinSteps = 1
   nIter = ceiling((numSavedSteps * thinSteps)/nChains)
 
