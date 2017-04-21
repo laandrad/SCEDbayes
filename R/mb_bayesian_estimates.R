@@ -11,16 +11,16 @@ mb.bayesian.estimates <- function(y, P, s, model) {
       T1 = unlist(phases[2]),
       T2 = unlist(phases[3])
     )
-    
+
   } else {
-    
+
     data = list(
       nPoints = length(y),
       y = y,
       P1 = unlist(phases[1])
     )
-  }  
-  
+  }
+
   ## Load model
   if(model == 'trend'){
     reg = lm(y ~ T1 + P1 + T2:P1, data = data)
@@ -30,6 +30,7 @@ mb.bayesian.estimates <- function(y, P, s, model) {
       beta2 = reg$coefficients[3] ,
       beta3 = reg$coefficients[4] ,
       rho = 0,
+      nu = 1,
       sigma.delta = length(y) / sum(reg$residuals^2)
     )
     param = c('beta0', 'beta1', 'beta2', 'beta3', 'rho', 'sigma.delta')
@@ -40,9 +41,10 @@ mb.bayesian.estimates <- function(y, P, s, model) {
       beta0 = reg$coefficients[1] ,
       beta1 = reg$coefficients[2] ,
       rho = 0,
+      nu = 1,
       sigma.delta = length(y) / sum(reg$residuals^2)
     )
-    param = c('beta0', 'beta1', 'rho', 'sigma.delta')
+    param = c('beta0', 'beta1', 'rho', 'nu', 'sigma.delta')
 
   }
 
