@@ -16,7 +16,7 @@ posterior.plot <- function(x, title, parameter) {
   text(0, holder*0.5, 'ROPE')
   lines(hdi.coords, lwd=3, col='dark green')
   text(HDI,holder*1.5,as.character(round(HDI,2)))
-  text(mu,holder*2.5,'95% HDI')
+  text(mu,holder*1.75,'95% HDI')
   text(mu,holder*5,bquote(paste(mu[.(parameter)],' = ',.(round(mu,2)))))
 
 }
