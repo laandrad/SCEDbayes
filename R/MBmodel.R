@@ -84,6 +84,7 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
       openGraph(width = 7, height = 7)
       layout(1)
       gelman.plot(chains)
+      ESS = effectiveSize(chains)
     }
 
     cat("  |**************************************************| 100%\n")
@@ -104,6 +105,12 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
   print(gamma.results)
   cat('\nStandardized effect size estimates for B-A phase change:\n')
   print(delta.results)
+
+  if(diagnostics == T){
+    ESS = effectiveSize(chains)
+    cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
+    print(ESS)
+  }
 
   return(list(beta.results, gamma.results, delta.results))
 
