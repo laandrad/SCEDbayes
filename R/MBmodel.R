@@ -110,7 +110,7 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
     ESS = effectiveSize(chains)
     cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
     print(ESS)
-    MCSE = sd(chains) / sqrt(ESS)
+    MCSE = apply(beta, 1, sd) / sqrt(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
   }
