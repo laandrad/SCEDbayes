@@ -37,8 +37,8 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE) {
 
   ## calculate bayesian coefficients using a Montecarlo Markov Chain
   beta = mb.bayesian.estimates(y, P, s, model)
-  chains = beta
-  beta = data.frame(beta)
+  chains = beta[[2]]
+  beta = data.frame(beta[[1]])
 
   # return(beta)
 
