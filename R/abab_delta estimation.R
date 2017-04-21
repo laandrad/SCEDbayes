@@ -2,7 +2,7 @@
 
 abab.compute.delta <- function(y, P, s, bayes.coeff, model) {
 
-  phases = create.phases(P, s)
+  phases = abab.create.phases(P, s)
   nPoints = length(y)
   P1 = unlist(phases[1])
   P2 = unlist(phases[2])
