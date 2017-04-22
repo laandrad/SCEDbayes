@@ -45,7 +45,7 @@ model2 = ABABmodel(y, P, s, model = 'trend') # Intercepts and slopes model
 }
 
 \references{
-Swaminathan, H., Rogers, H. J., & Horner, R. H. (2014). An effect size measure and Bayesian analysis of single-case designs. Journal of School Psychology, 52(2), 213-230. doi:10.1016/j.jsp.2013.12.002
-
 Kruschke, J. (2010). Doing Bayesian Data Analysis: A Tutorial Introduction with R. Boston, MA.: Academic Press.
+
+Swaminathan, H., Rogers, H. J., & Horner, R. H. (2014). An effect size measure and Bayesian analysis of single-case designs. Journal of School Psychology, 52(2), 213-230. doi:10.1016/j.jsp.2013.12.002
 }
