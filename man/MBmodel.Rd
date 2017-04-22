@@ -14,7 +14,7 @@ MBmodel(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps 
 \item{y}{outcome variable}
 \item{P}{phase identifier}
 \item{s}{session identifier}
-\item{model}{the model to be fitted. If set to "level" (the default), the model calculates intercepts only. Set to "trend", the model calculates intercepts and slopes.}
+\item{model}{the model to be fitted. If set to "level" (the default), an intercepts only model is calculated. If set to "trend", an intercepts and slopes model is calculated.}
 \item{plots}{whether graphs are to be plotted. Defaults to TRUE.}
 \item{diagnostics}{whether diagnostic statistics are to be calculated. Defaults to FALSE. The diagnostics option retrieves the Gelman-Rubin statistic (which measures the ratio of the between-within variability within the chains), the ESS or effective sample size (which measures the independent information contained by the samples), and the MCSE or Monte Carlo Standard Error (which measures the estimated standard deviation of the sample mean in the chains).}
 \item{adaptSteps}{number of steps to adapt the chain}
