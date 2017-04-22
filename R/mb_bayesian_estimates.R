@@ -1,5 +1,5 @@
 ## Calculate Bayesian estimates
-mb.bayesian.estimates <- function(y, P, s, model) {
+mb.bayesian.estimates <- function(y, P, s, model, adaptSteps, burnInSteps, nChains, numSavedSteps, thinSteps) {
   phases = mb.create.phases(P, s)
 
   ## Load data

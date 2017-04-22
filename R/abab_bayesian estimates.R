@@ -1,5 +1,5 @@
 ## Calculate Bayesian estimates
-abab.bayesian.estimates <- function(y, P, s, model) {
+abab.bayesian.estimates <- function(y, P, s, model, adaptSteps, burnInSteps, nChains, numSavedSteps, thinSteps) {
   phases = abab.create.phases(P, s)
 
   data = list(
