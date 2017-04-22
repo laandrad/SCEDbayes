@@ -7,7 +7,9 @@
 \title{Bayesian Estimation of Effect Sizes in Multiple-Baseline Designs}
 
 \usage{
-MBmodel(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps = 10000, burnInSteps = 100000, nChains = 3, numSavedSteps = 200000, thinSteps = 10)
+MBmodel(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE,
+          adaptSteps = 10000, burnInSteps = 100000, nChains = 3,
+            numSavedSteps = 200000, thinSteps = 10)
 }
 
 \arguments{
