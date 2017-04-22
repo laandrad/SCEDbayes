@@ -4,9 +4,9 @@ Powerful multilevel Bayesian analysis, based on the Bayesian statistical model i
 ## Package Installation
 The SCEDbayes package can be installed directly from GitHub into R using devtools package, as follows,
 
-> install.packages("devtools") <
-> devtools::install_github("laandrad/SCEDbayes")
-> library(SCEDbayes)
+#### > install.packages("devtools")
+#### > devtools::install_github("laandrad/SCEDbayes")
+#### > library(SCEDbayes)
 
 ## ABABmodel
 This function computes a lag-1 autoregression time series analysis with Bayesian estimates for ABAB reversal designs. It can be used with data from an ABAB reversal design to examine the effect of the introduction of a treatment B after a baseline A, followed up by a retreat and then a reintroduction of such treatment.
