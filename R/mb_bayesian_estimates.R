@@ -49,11 +49,6 @@ mb.bayesian.estimates <- function(y, P, s, model) {
   }
 
   ## Initialize MCMC
-  adaptSteps = 10000
-  burnInSteps = 100000
-  nChains = 3
-  numSavedSteps = 200000
-  thinSteps = 10
   nIter = ceiling((numSavedSteps * thinSteps)/nChains)
 
   jagsModel = jags.model('model.txt', data=data, n.chains = nChains, n.adapt = adaptSteps, inits=initsList)

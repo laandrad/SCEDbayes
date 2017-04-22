@@ -1,20 +1,7 @@
-#' Bayesian Estimation of Effect Sizes in Single-Case Experimental Designs
-#'
-#' This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs to examine the effect of the introduction of a treatment B after a baseline A.
-#' @param y outcome variable
-#' @param P phase identifier
-#' @param s session identifier
-#' @param model the model to be fitted. If set to "level" (the default), the model calculates intercepts only. Set to "trend", the model calculates intercepts and slopes.
-#' @param plots whether graphs are to be plotted. Defaults to TRUE.
-#' @return delta effect size estimates for A1B1, B1A2, and A2B2 phase changes
-#' @export
-#' @examples
-#' library(SCEDbayes)
-#' dat = data(LAMBERT, package = "SCEDbayes")
-#' dat = subset(dat, dat$STUDENT==1)
-#' model = MBmodel(dat$DATA.POINT, dat$PHASE, dat$SESSION, model = 'level', plots = TRUE)
+## Multiple-Baseline Design
 
-MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) {
+MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps = 10000,
+                   burnInSteps = 100000, nChains = 3, numSavedSteps = 200000, thinSteps = 10) {
 
   ## load packages
   if(!require(rjags)){
@@ -100,6 +87,13 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
   print(delta.results)
 
   if(diagnostics == T){
+    ## calculate diagnostic statistics
+    cat('Computing diagnostic statistics...\n')
+
+    openGraph(width = 9, height = 7)
+    layout(1)
+    gelman.plot(chains)
+
     cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence]:\n')
     GB = gelman.diag(chains)
     print(GB)
@@ -109,9 +103,8 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE) 
     MCSE = apply(beta, 2, sd) / sqrt(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
-    openGraph(width = 7, height = 7)
-    layout(1)
-    gelman.plot(chains)
+
+    cat("  |**************************************************| 100%\n")
   }
 
   return(list(beta.results, gamma.results, delta.results))
