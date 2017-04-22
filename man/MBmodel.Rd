@@ -25,7 +25,7 @@ MBmodel(y, P, s, model = "level", plots = TRUE, diagnostics = FALSE)
 }
 
 \description{
-This function allows you to compute an interrupted time series (ITS) analysis with Bayesian estimates. It can be used in single-case experimental designs with multiple-baseline across participants to examine the effect of the introduction of a treatment B after a baseline A.
+This function computes a lag-1 autoregression time series analysis with Bayesian estimates for multiple-baseline designs. It can be used with data from a multiple-baseline design to examine the effect of the introduction of a treatment B after a baseline A.
 }
 
 \examples{
@@ -34,4 +34,9 @@ dat = subset(LAMBERT_MB, LAMBERT_MB$STUDENT==1)
 y = dat$DATA.POINT; P = dat$PHASE; s = dat$SESSION;
 model1 = MBmodel(y, P, s, model = 'level') # Intercepts only model
 model2 = MBmodel(y, P, s, model = 'trend') # Intercepts and slopes model
+}
+
+\References{
+Swaminathan, H., Rogers, H. J., & Horner, R. H. (2014). An effect size measure and Bayesian analysis of single-case designs. Journal of School Psychology, 52(2), 213-230. doi:10.1016/j.jsp.2013.12.002
+Kruschke, J. (2010). Doing Bayesian Data Analysis: A Tutorial Introduction with R. Boston, MA.: Academic Press.
 }
