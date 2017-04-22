@@ -4,7 +4,7 @@ Powerful multilevel Bayesian analysis, based on the Bayesian statistical model i
 ## Package Installation
 The SCEDbayes package can be installed directly from GitHub into R using devtools package, as follows,
 
-> install.packages("devtools")
+> install.packages("devtools") <
 > devtools::install_github("laandrad/SCEDbayes")
 > library(SCEDbayes)
 
