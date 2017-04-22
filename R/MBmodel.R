@@ -1,7 +1,7 @@
 ## Multiple-Baseline Design
 
-MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps = 10000,
-                   burnInSteps = 100000, nChains = 3, numSavedSteps = 200000, thinSteps = 10) {
+MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps = 5000,
+                   burnInSteps = 50000, nChains = 3, numSavedSteps = 100000, thinSteps = 5) {
 
   ## load packages
   if(!require(rjags)){
@@ -105,12 +105,13 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, 
     print(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
+    cat('\n')
 
   }
 
   if(diagnostics == T){
 
-    diagnost = list(GB, EDD, MCSE)
+    diagnost = list(GB, ESS, MCSE)
     return(list(beta.results, gamma.results, delta.results, diagnost))
 
   } else{

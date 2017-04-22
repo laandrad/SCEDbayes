@@ -103,12 +103,13 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE
     print(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
+    cat('\n')
 
   }
 
   if(diagnostics == T){
 
-    diagnost = list(GB, EDD, MCSE)
+    diagnost = list(GB, ESS, MCSE)
     return(list(beta.results, gamma.results, delta.results, diagnost))
 
   } else{
