@@ -4,7 +4,7 @@ posterior.plot <- function(x, title, parameter) {
   mu = mean(x)
   min.v = min(x)
   max.v = max(x)
-  HDI = quantile(x, c(0.025,0.975))
+  HDI = HDIofMCMC(x, 0.95)
   holder = max(density(x)$y) / 6
   CD0 = ifelse(sum(HDI>0.2)==2 | sum(HDI < -0.2)==2, '* credibly not 0', '+ credibly 0')
   hdi.coords = xy.coords(HDI, rep(holder,2))
