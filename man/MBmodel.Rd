@@ -8,8 +8,8 @@
 
 \usage{
 MBmodel(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE,
-          adaptSteps = 10000, burnInSteps = 100000, nChains = 3,
-            numSavedSteps = 200000, thinSteps = 10)
+          adaptSteps = 5000, burnInSteps = 50000, nChains = 3,
+            numSavedSteps = 100000, thinSteps = 5)
 }
 
 \arguments{
