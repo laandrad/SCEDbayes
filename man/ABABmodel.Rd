@@ -7,7 +7,7 @@
 \title{Bayesian Estimation of Effect Sizes in ABAB Reversal Designs}
 
 \usage{
-ABABmodel(y, P, s, model = "level", plots = TRUE, diagnostics = FALSE)
+ABABmodel(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, adaptSteps = 10000, burnInSteps = 100000, nChains = 3, numSavedSteps = 200000, thinSteps = 10)
 }
 
 \arguments{
@@ -16,6 +16,12 @@ ABABmodel(y, P, s, model = "level", plots = TRUE, diagnostics = FALSE)
 \item{s}{session identifier}
 \item{model}{the model to be fitted. If set to "level" (the default), the model calculates intercepts only. Set to "trend", the model calculates intercepts and slopes.}
 \item{plots}{whether graphs are to be plotted. Defaults to TRUE.}
+\item{diagnostics}{whether diagnostic statistics are to be calculated. Defaults to FALSE. The diagnostics option retrieves the Gelman-Rubin statistic (which measures the ratio of the between-within variability within the chains), the ESS or effective sample size (which measures the independent information contained by the samples), and the MCSE or Monte Carlo Standard Error (which measures the estimated standard deviation of the sample mean in the chains).}
+\item{adaptSteps}{number of steps to adapt the chain}
+\item{burnInSteps}{number of steps to burn in}
+\item{nChains}{number of chains to be computed}
+\item{numSavedSteps}{total number of steps to be computed}
+\item{thinSteps}{save every nth number of steps in the chain}
 }
 
 \value{
@@ -38,5 +44,6 @@ model2 = ABABmodel(y, P, s, model = 'trend') # Intercepts and slopes model
 
 \references{
 Swaminathan, H., Rogers, H. J., & Horner, R. H. (2014). An effect size measure and Bayesian analysis of single-case designs. Journal of School Psychology, 52(2), 213-230. doi:10.1016/j.jsp.2013.12.002
+
 Kruschke, J. (2010). Doing Bayesian Data Analysis: A Tutorial Introduction with R. Boston, MA.: Academic Press.
 }
