@@ -86,26 +86,36 @@ ABABmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE
 
   if(diagnostics == T){
     ## calculate diagnostic statistics
-    cat('Computing diagnostic statistics...\n')
+    cat('\nComputing diagnostic statistics...\n')
 
     openGraph(width = 9, height = 7)
     layout(1)
     gelman.plot(chains)
+    GB = gelman.diag(chains)
+    ESS = effectiveSize(chains)
+    MCSE = apply(beta, 2, sd) / sqrt(ESS)
+
+    cat("  |**************************************************| 100%\n")
 
     cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence]:\n')
-    GB = gelman.diag(chains)
     print(GB)
     cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
-    ESS = effectiveSize(chains)
     print(ESS)
-    MCSE = apply(beta, 2, sd) / sqrt(ESS)
     cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
     print(MCSE)
 
-    cat("  |**************************************************| 100%\n")
   }
 
-  return(list(beta.results, gamma.results, delta.results))
+  if(diagnostics == T){
+
+    diagnost = list(GB, EDD, MCSE)
+    return(list(beta.results, gamma.results, delta.results, diagnost))
+
+  } else{
+
+    return(list(beta.results, gamma.results, delta.results))
+
+  }
 
 }
 
