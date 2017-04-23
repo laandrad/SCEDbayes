@@ -90,7 +90,7 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, 
     ## calculate diagnostic statistics
     cat('\nComputing diagnostic statistics...\n')
 
-    openGraph(width = 9, height = 7)
+    openGraph(width = 8, height = 7)
     layout(1)
     gelman.plot(chains)
     GB = gelman.diag(chains)
@@ -99,11 +99,11 @@ MBmodel = function(y, P, s, model = 'level', plots = TRUE, diagnostics = FALSE, 
 
     cat("  |**************************************************| 100%\n")
 
-    cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence]:\n')
+    cat('\nGelman-Rubin statistic [note: values close to 1.0 indicate convergence, and larger than 1.0 lack thereof]:\n')
     print(GB)
-    cat('\nEffective Sample Size of the chains [note: values close to 10,000 are recommended]:\n')
+    cat('\nEffective Sample Size of the chains [note: values close to or larger than 10,000 are recommended]:\n')
     print(ESS)
-    cat('\nMonte Carlo Standard Error [note: interpreted on the scale of the parameter]:\n')
+    cat('\nMonte Carlo Standard Error [note: values are interpreted on the scale of the parameter]:\n')
     print(MCSE)
     cat('\n')
 
